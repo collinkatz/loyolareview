@@ -52,9 +52,6 @@ router.get("/:id", async (req, res) => {
       
           if (!result) res.send("Not found").status(404);
           else res.send(result).status(200);
-      } else {
-          let result = await collection.find({});
-          res.send(result).status(200);
       }
     } catch (err) {
       console.error(err);
@@ -80,6 +77,22 @@ router.post("/", async (req, res) => {
       }
 });
 
+// router.get("/image/:id", async (req, res) => { // Probably don't even need an images table, but may help for deleting
+//   try {
+//     let collection = await db.collection("images");
+//     if (req.params.id !== undefined) {
+//         let query = { _id: new ObjectId(req.params.id) };
+//         let result = await collection.findOne(query);
+    
+//         if (!result) res.send("Not found").status(404);
+//         else res.send(result).status(200);
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Error getting image");
+//   }
+// });
+
 router.post("/image/:reviewId", upload.single('image'), async (req, res) => {
   try {
     // req.file contains information about the uploaded file
@@ -89,15 +102,22 @@ router.post("/image/:reviewId", upload.single('image'), async (req, res) => {
     }
 
     const fileName = req.file.filename;
+    // let newImage = {
+    //   name: fileName
+    // };
+    // let imageCollection = await db.collection("images");
+    // let imageResult = await imageCollection.insertOne(newImage);
 
-    let newImage = {
-      name: fileName
-    };
+    // Now add image id into our review
+    let reviewCollection = await db.collection("reviews");
+    let reviewQuery = { _id: new ObjectId(req.params.reviewId) };
+    let updateReview = { $push: { image_names: fileName }};
+    let reviewResult = await reviewCollection.updateOne(reviewQuery, updateReview);
 
-    let collection = await db.collection("images");
-    let result = await collection.insertOne(newImage);
-
-    res.status(200).send(result);
+    res.status(200).send({
+      // "image": imageResult,
+      "review": reviewResult
+    });
   } catch (err) {
     console.error(err);
   }

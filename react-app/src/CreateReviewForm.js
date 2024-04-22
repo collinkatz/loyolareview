@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios"
 
+const styles = {
+    formInput: {
+        marginBottom: "10px"
+    },
+    form: {
+        width: "50%"
+    },
+    vStack: {
+        display: "flex",
+        flexDirection: "column",
+    }
+};
+
 function CreateReviewForm() {
 
     const [files, setFiles] = useState([]);
@@ -90,7 +103,7 @@ function CreateReviewForm() {
         const formData = new FormData(form);
 
         postReview(formData);
-        
+
     }
 
     function renderFileList () {
@@ -124,23 +137,19 @@ function CreateReviewForm() {
     return (
         <form
             onSubmit={submit}
-            style={{
-                display: "flex",
-                flexDirection: "column",
-
-            }}
+            style={{...styles.form, ...styles.vStack}}
         >
             <input
                 type="text"
                 name="title"
                 placeholder="Title"
-                style={{marginBottom: "10px"}}
+                style={styles.formInput}
             />
             <input
                 type="textarea"
                 name="body"
                 placeholder="Description"
-                style={{marginBottom: "10px"}}
+                style={styles.formInput}
             />
             <input
                 type="number"
@@ -148,7 +157,7 @@ function CreateReviewForm() {
                 min="1"
                 max="10"
                 placeholder="Rating (1-10)"
-                style={{ marginBottom: "10px" }}
+                style={styles.formInput}
             />
             <input
                 type="file"
@@ -156,13 +165,13 @@ function CreateReviewForm() {
                 accept="image/png, image/jpeg"
                 multiple
                 onChange={(event) => {setFiles(event.target.files)}}
-                style={{marginBottom: "10px"}}
+                style={styles.formInput}
             />
             {renderFileList()}
             <input
                 type="submit"
                 value="Submit"
-                style={{marginBottom: "10px"}}
+                style={styles.formInput}
             />
         </form>
     );
