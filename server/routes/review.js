@@ -2,6 +2,8 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { config } from 'dotenv';
+const result = config({ path: './config.env' });
 
 // This will help us connect to the database
 import db from "../db/connection.js";
@@ -14,7 +16,21 @@ import { ObjectId } from "mongodb";
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const router = express.Router();
 
-const upload = multer({ dest: '../data/images/' }); // This will store uploaded files in the 'uploads/' directory
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, process.env.IMAGE_STORAGE_DIR)
+    },
+    filename: function (req, file, cb) {
+      /* From https://stackoverflow.com/questions/31592726/how-to-store-a-file-with-file-extension-with-multer */
+      let extArray = file.mimetype.split("/");
+      let extension = extArray[extArray.length - 1];
+      /* End Stack Overflow Solution */
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + "." + extension // TODO: Likely want to verify its png or jpg
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  });
+
+const upload = multer({ storage: storage });
 
 router.get("/", async (req, res) => {
   try {
@@ -72,36 +88,10 @@ router.post("/image/:reviewId", upload.single('image'), async (req, res) => {
       return res.status(400).send('No file uploaded.');
     }
 
-    /* From https://stackoverflow.com/questions/15772394/how-to-upload-display-and-save-images-using-node-js-and-express */
-    const tempPath = req.file.path;
-    const targetPath = path.join(__dirname, "./uploads/image.png");
-
-    if (path.extname(req.file.originalname).toLowerCase() === ".png") {
-      fs.rename(tempPath, targetPath, err => {
-        if (err) {
-          return res.status(500).contentType("text/plain").end("Oops! Something went wrong!");      
-        }
-        res
-          .status(200)
-          .contentType("text/plain")
-          .end("File uploaded!");
-      });
-    } else {
-      fs.unlink(tempPath, err => {
-        if (err) {
-          return res.status(500).contentType("text/plain").end("Oops! Something went wrong!");      
-        }
-
-        res
-          .status(403)
-          .contentType("text/plain")
-          .end("Only .png files are allowed!");
-      });
-    }
-    /* END stack overflow solution */
+    const fileName = req.file.filename;
 
     let newImage = {
-      path: targetPath
+      name: fileName
     };
 
     let collection = await db.collection("images");
@@ -109,7 +99,7 @@ router.post("/image/:reviewId", upload.single('image'), async (req, res) => {
 
     res.status(200).send(result);
   } catch (err) {
-
+    console.error(err);
   }
 });
 

@@ -1,11 +1,86 @@
 import React, { useState } from "react";
+import axios from "axios"
 
 function CreateReviewForm() {
 
     const [files, setFiles] = useState([]);
 
-    function uploadImage() {
+    function uploadImage(file, reviewId) {
+        /* 
+        Note: For some reason React FormData will handle uploading the image as a binary file through ftp I guess
+        Therefore it is important to turn file into a formdata and then transmit it
+        */
+        const formData = new FormData();
+        formData.append('image', file);
 
+        axios.post(`http://localhost:8000/review/image/${reviewId}`,
+            formData,
+            { // Pass headers as well, that way backend knows theres a file
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        )
+        .then((response) => {
+            console.log("Successfully uploaded image");
+            console.log(response.data);
+            console.log(response.status);
+        })
+        .catch((error) => {
+            console.log("Error uploading image");
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+        });
+    }
+
+    function postReview(formData) {
+        let data = {
+            title: formData.get("title"),
+            body: formData.get("body"),
+            rating: formData.get("rating")
+        }
+        axios.post(`http://localhost:8000/review/`, data)
+        .then((response) => {
+            // Wait to hear back that review was created
+            console.log("Succesfully created review");
+            console.log(response.data);
+            console.log(response.status);
+
+            const reviewId = response.data.insertedId;
+
+            // Now post all images
+            const files = formData.getAll('file');
+            for (let file of files) {
+                uploadImage(file, reviewId);
+            }
+        })
+        .catch((error) => {
+            console.log("Error posting review");
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+            }
+        });
     }
 
     function submit(event) {
@@ -14,7 +89,8 @@ function CreateReviewForm() {
         const form = event.target;
         const formData = new FormData(form);
 
-        console.log(formData);
+        postReview(formData);
+        
     }
 
     function renderFileList () {
@@ -59,6 +135,20 @@ function CreateReviewForm() {
                 name="title"
                 placeholder="Title"
                 style={{marginBottom: "10px"}}
+            />
+            <input
+                type="textarea"
+                name="body"
+                placeholder="Description"
+                style={{marginBottom: "10px"}}
+            />
+            <input
+                type="number"
+                name="rating"
+                min="1"
+                max="10"
+                placeholder="Rating (1-10)"
+                style={{ marginBottom: "10px" }}
             />
             <input
                 type="file"
