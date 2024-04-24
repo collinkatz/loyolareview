@@ -40,17 +40,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header" style={{ overflow: "auto" }}>
-        <div className='main'
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            boxSizing: "border-box", // Makes stuff inside constrict to padding
-            padding: "10vh"
-          }}
-        >
+        <div className='main'>
           <CreateReviewForm />
           {reviews.map((reviewData, index) => {
             console.log(reviewData)
