@@ -16,12 +16,12 @@ router.get("/:imageName", async (req, res) => {
     // https://stackoverflow.com/questions/17699599/node-js-check-if-file-exists
     fs.access(filePath, fs.constants.F_OK, (err) => {
         if (err) {
-            console.log("File not found");
-            console.log(path.join(imagesDir, placeholderImage))
+            // console.log("File not found");
+            // console.log(path.join(imagesDir, placeholderImage))
             res.sendFile(placeholderImage, { root: imagesDir });
         } else {
-            console.log("File found");
-            console.log(filePath)
+            // console.log("File found");
+            // console.log(filePath)
             res.sendFile(imageName, { root: imagesDir });
         }
     });
