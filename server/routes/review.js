@@ -115,7 +115,17 @@ router.delete("/:id", async (req, res) => {
     let collection = await db.collection("reviews");
     if (req.params.id !== undefined) {
       let query = { _id: new ObjectId(req.params.id) };
-      let result = await collection.deleteOne(query);
+      let images = await collection.findOne(query).then((result) => {
+        for (let i in result.image_names) {
+          fs.unlink("./data/images/" + result.image_names[i], (err) => {
+            console.log(result.image_names[i] + " Not found on server");
+          });
+        }
+      })
+      .finally(() => {
+        let result = collection.deleteOne(query);
+      });
+      
   
       if (result.deletedCount === 0) {
         res.status(404).send("Not found");
