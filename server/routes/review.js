@@ -77,27 +77,64 @@ router.post("/", async (req, res) => {
       }
 });
 
-// router.get("/image/:id", async (req, res) => { // Probably don't even need an images table, but may help for deleting
-//   try {
-//     let collection = await db.collection("images");
-//     if (req.params.id !== undefined) {
-//         let query = { _id: new ObjectId(req.params.id) };
-//         let result = await collection.findOne(query);
-    
-//         if (!result) res.send("Not found").status(404);
-//         else res.send(result).status(200);
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Error getting image");
-//   }
-// });
+router.patch("/:id", async (req, res) => {
+  try {
+    let updateData = {};
+    if (req.body.title) {
+      updateData.title = req.body.title;
+    }
+    if (req.body.body) {
+      updateData.body = req.body.body;
+    }
+    if (req.body.rating) {
+      updateData.rating = req.body.rating;
+    }
+
+    let collection = await db.collection("reviews");
+    let result = await collection.updateOne(
+      { _id: new ObjectId(req.params.id) },
+      { $set: updateData },
+      { upsert: false }
+    );
+
+    if (result.matchedCount === 0) {
+      res.status(404).send("Review not found");
+    } else if (result.modifiedCount === 0) {
+      res.status(204).send();
+    } else {
+      res.status(200).send("Review updated successfully");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error adding review");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    let collection = await db.collection("reviews");
+    if (req.params.id !== undefined) {
+      let query = { _id: new ObjectId(req.params.id) };
+      let result = await collection.deleteOne(query);
+  
+      if (result.deletedCount === 0) {
+        res.status(404).send("Not found");
+      } else {
+          res.status(200).send("Review deleted successfully");
+      }
+    } else {
+      res.status(400).send("Review ID is required");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error getting review");
+  }
+});
 
 router.post("/image/:reviewId", upload.single('image'), async (req, res) => {
   try {
     // req.file contains information about the uploaded file
     if (!req.file) {
-      // If no file is uploaded, return an error response
       return res.status(400).send('No file uploaded.');
     }
 

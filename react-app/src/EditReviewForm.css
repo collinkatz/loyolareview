@@ -1,0 +1,15 @@
+.edit-review-form-container {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    top: 25%;
+}
+
+.edit-review-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    margin-bottom: 10px;
+}

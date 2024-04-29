@@ -2,15 +2,21 @@
     position: relative;
     width: 100%;
     max-width: 600px;
+    max-height: 300px;
     margin: auto;
     overflow-y: clip;
+    z-index: 1;
 }
 
 .card-image {
     transition: all 1s;
     width: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
     height: auto;
     display: block;
+    z-index: 2;
 }
 
 .card-image-preview-right {
@@ -22,6 +28,7 @@
     top: 50%;
     transform: translateY(-50%);
     right: -50%;
+    z-index: 2;
 }
 
 .card-image-preview-left {
@@ -33,6 +40,7 @@
     top: 50%;
     transform: translateY(-50%);
     left: -50%;
+    z-index: 2;
 }
 
 .arrow-container {

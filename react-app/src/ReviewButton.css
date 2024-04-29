@@ -9,6 +9,8 @@
     border-width: 0px;
     border-radius: 50px;
     margin: 10px;
+    z-index: 10;
+    position: relative;
 }
 
 .review-button:hover {
@@ -26,9 +28,10 @@
     calc(-10px * var(--dist)) calc(10px * var(--dist)) var(--spread) 0px #00DDEB;
     margin: 16px;
     cursor: pointer;
+    z-index: 10;
 }
 
-.delete-review-button:active {
+.review-button:active {
     transition: 0.1s;
     margin: 14px;
     color: #ffffff;
@@ -41,4 +44,5 @@
     calc(10px * var(--dist)) calc(10px * var(--dist)) var(--spread) 0px #5B42F3, 
     0 calc(10px * var(--dist)) var(--spread) 0px #00DDEB, 
     calc(-10px * var(--dist)) calc(10px * var(--dist)) var(--spread) 0px #00DDEB;
+    z-index: 10;
 }

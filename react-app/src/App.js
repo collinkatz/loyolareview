@@ -42,10 +42,14 @@ function App() {
       <header className="App-header" style={{ overflow: "auto" }}>
         <div className='main'>
           <CreateReviewForm />
-          {reviews.map((reviewData, index) => {
-            console.log(reviewData)
-            return <ReviewCard reviewData={reviewData}/>
-          })}
+          {reviews !== undefined ?
+            (reviews.map((reviewData, index) => {
+              // console.log(reviewData)
+              return <ReviewCard reviewData={reviewData}/>
+            }))
+          :
+            <></>
+          }
         </div>
       </header>
     </div>

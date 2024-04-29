@@ -77,6 +77,10 @@ function CreateReviewForm() {
             for (let file of files) {
                 uploadImage(file, reviewId);
             }
+            // Reload Page now
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
         })
         .catch((error) => {
             console.log("Error posting review");
