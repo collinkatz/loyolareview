@@ -1,6 +1,8 @@
 import React from "react";
 import "./ReviewCard.css"
 import ImageCarousel from "./ImageCarousel";
+import DeleteReviewButton from "./DeleteReviewButton";
+import EditReviewButton from "./EditReviewButton";
 
 // const styles = {
 //     card: {
@@ -48,25 +50,29 @@ import ImageCarousel from "./ImageCarousel";
 
 function ReviewCard({ reviewData }) {
     return (
-        <div className="review-card card">
-            <div className="header">
-                <span className="title">{reviewData.title}</span>
-                <span className="rating">Rating: {reviewData.rating} / 10</span>
-                <span className="date">{new Date(reviewData.date_created).toLocaleDateString()}</span>
-            </div>
-            <p className="body">{reviewData.body}</p>
-            <div className="footer">
-                <ImageCarousel images={reviewData.image_names} />
-                {/* {reviewData.image_names.map((image_name, index) => {
-                    return (
-                        <div className="image-container">
-                            <img
-                                className="card-image"
-                                src={`http://localhost:8000/images/${image_name}`}
-                            />
-                        </div>
-                    )
-                })} */}
+        <div className="card-background" >
+            <div className="review-card card">
+                <div className="header">
+                    <span className="title">{reviewData.title}</span>
+                    <span className="rating">Rating: {reviewData.rating} / 10</span>
+                    <span className="date">{new Date(reviewData.date_created).toLocaleDateString()}</span>
+                </div>
+                <p className="body">{reviewData.body}</p>
+                <div className="footer">
+                    <ImageCarousel images={reviewData.image_names} />
+                    {/* {reviewData.image_names.map((image_name, index) => {
+                        return (
+                            <div className="image-container">
+                                <img
+                                    className="card-image"
+                                    src={`http://localhost:8000/images/${image_name}`}
+                                />
+                            </div>
+                        )
+                    })} */}
+                    <DeleteReviewButton />
+                    <EditReviewButton />
+                </div>
             </div>
         </div>
     );

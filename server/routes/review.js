@@ -35,7 +35,7 @@ const upload = multer({ storage: storage });
 router.get("/", async (req, res) => {
   try {
     let collection = await db.collection("reviews");
-    let results = await collection.find({}).toArray();
+    let results = await collection.find({}).sort({date_created: -1}).toArray();
     res.send(results).status(200);
   } catch (err) {
     console.error(err);

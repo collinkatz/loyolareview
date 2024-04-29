@@ -27,26 +27,39 @@ function ImageCarousel({ images }) {
 
     return (
         <div className="image-container">
-            
-            <img
-                className={leftPreviewClassName}
-                src={`http://localhost:8000/images/${getAdjacentImageIndex("left")}`}
-            />
-            <img
-                className={centerImageClassName}
-                src={`http://localhost:8000/images/${images[currentIndex]}`}
-            />
-            <img
-                className={rightPreviewClassName}
-                src={`http://localhost:8000/images/${getAdjacentImageIndex("right")}`}
-            />
+            {images.length > 1 ?
+                <img
+                    className={leftPreviewClassName}
+                    src={`http://localhost:8000/images/${getAdjacentImageIndex("left")}`}
+                />
+            : <></>
+            }
+            {images.length > 0 ?
+                <img
+                    className={centerImageClassName}
+                    src={`http://localhost:8000/images/${images[currentIndex]}`}
+                />
+            : <></>
+            }
+            {images.length > 1 ?
+                <img
+                    className={rightPreviewClassName}
+                    src={`http://localhost:8000/images/${getAdjacentImageIndex("right")}`}
+                />
+            : <></>
+            }
 
-            <div className="arrow-container left"  onClick={() => handleNavigation('left')}>
-                <div className="arrow">❮</div>
-            </div>
-            <div className="arrow-container right" onClick={() => handleNavigation('right')}>
-                <div className="arrow">❯</div>
-            </div>
+            {images.length > 1 ?
+                <>
+                    <div className="arrow-container left"  onClick={() => handleNavigation('left')}>
+                        <div className="arrow">❮</div>
+                    </div>
+                    <div className="arrow-container right" onClick={() => handleNavigation('right')}>
+                        <div className="arrow">❯</div>
+                    </div>
+                </>
+            : <></>
+            }
         </div>
     );
 }
