@@ -1,15 +1,71 @@
 .edit-review-form-container {
-    position: relative;
-    width: 400px;
-    height: 300px;
-    top: 25%;
+    position: absolute;
+    width: 30vw;
+    height: 30vh;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    border-radius: 20px;
+    z-index: 1000;
+    padding: 20px;
 }
 
 .edit-review-form {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: inherit;
+}
+
+.form-title {
+    margin: 10px;
 }
 
 .form-input {
     margin-bottom: 10px;
+    width: 100%;
+    height: 15%;
+    z-index: inherit;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background: rgb(5, 6, 45);
+    border-radius: 10px;
+    border-width: 0px;
+}
+
+.form-input::placeholder {
+    color: #FFFFFF;
+}
+
+.form-input:focus {
+    transition: 0.2s;
+    --spread: 8px;
+    --dist: 1;
+    box-shadow: 
+    calc(-10px * var(--dist)) calc(-10px * var(--dist)) var(--spread) 0px #5B51D8, 
+    0 calc(-10px * var(--dist)) var(--spread) 0px #833AB4, 
+    calc(10px * var(--dist)) calc(-10px * var(--dist)) var(--spread) 0px #AF40FF, 
+    calc(10px * var(--dist)) 0 var(--spread) 0px #5B42F3, 
+    calc(10px * var(--dist)) calc(10px * var(--dist)) var(--spread) 0px #5B42F3, 
+    0 calc(10px * var(--dist)) var(--spread) 0px #00DDEB, 
+    calc(-10px * var(--dist)) calc(10px * var(--dist)) var(--spread) 0px #00DDEB;
+}
+
+.form-submit-button {
+    justify-self: flex-end;
+    width: 100%;
+    z-index: inherit;
+}
+
+.close-modal-button {
+    position: absolute;
+    top: 0%;
+    left: 100%;
+    transform: translateX(-50%) translateY(-50%);
 }

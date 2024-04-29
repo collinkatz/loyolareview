@@ -70,4 +70,5 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%); /* Center the arrow horizontally */
     top: 50%;
+    user-select: none;
 }

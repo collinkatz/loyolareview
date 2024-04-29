@@ -71,7 +71,7 @@ function ReviewCard({ reviewData }) {
                         )
                     })} */}
                     <DeleteReviewButton />
-                    <EditReviewButton />
+                    <EditReviewButton reviewData={reviewData}/>
                 </div>
             </div>
         </div>
