@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios"
+import "./EditReviewForm.css";
 
-const styles = {
-    formInput: {
-        marginBottom: "10px"
-    },
-    form: {
-        width: "50%"
-    },
-    vStack: {
-        display: "flex",
-        flexDirection: "column",
-    }
-};
+// const styles = {
+//     formInput: {
+//         marginBottom: "10px"
+//     },
+//     form: {
+//         width: "50%"
+//     },
+//     vStack: {
+//         display: "flex",
+//         flexDirection: "column",
+//     }
+// };
 
 function CreateReviewForm() {
 
@@ -138,46 +139,54 @@ function CreateReviewForm() {
 
 
     return (
-        <form
-            onSubmit={submit}
-            style={{...styles.form, ...styles.vStack}}
-        >
-            <h1>Submit a Review</h1>
-            <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                style={styles.formInput}
-            />
-            <input
-                type="textarea"
-                name="body"
-                placeholder="Description"
-                style={styles.formInput}
-            />
-            <input
-                type="number"
-                name="rating"
-                min="1"
-                max="10"
-                placeholder="Rating (1-10)"
-                style={styles.formInput}
-            />
-            <input
-                type="file"
-                name="file"
-                accept="image/png, image/jpeg"
-                multiple
-                onChange={(event) => {setFiles(event.target.files)}}
-                style={styles.formInput}
-            />
-            {renderFileList()}
-            <input
-                type="submit"
-                value="Submit"
-                style={styles.formInput}
-            />
-        </form>
+        <div className="edit-review-form-container-relative">
+            <form
+                onSubmit={submit}
+                // style={{...styles.form, ...styles.vStack}}
+                className="edit-review-form"
+            >
+                <h1 className="form-title">Submit a Review</h1>
+                <input
+                    className="form-input"
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    // style={styles.formInput}
+                />
+                <input
+                    className="form-input"
+                    type="textarea"
+                    name="body"
+                    placeholder="Description"
+                    // style={styles.formInput}
+                />
+                <input
+                    className="form-input"
+                    type="number"
+                    name="rating"
+                    min="1"
+                    max="10"
+                    placeholder="Rating (1-10)"
+                    // style={styles.formInput}
+                />
+                <input
+                    className="form-input"
+                    type="file"
+                    name="file"
+                    accept="image/png, image/jpeg"
+                    multiple
+                    onChange={(event) => {setFiles(event.target.files)}}
+                    // style={styles.formInput}
+                />
+                {renderFileList()}
+                <input
+                    className="form-submit-button review-button"
+                    type="submit"
+                    value="Submit"
+                    // style={styles.formInput}
+                />
+            </form>
+        </div>
     );
 }
 

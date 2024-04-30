@@ -41,6 +41,17 @@ function App() {
     <div className="App">
       <header className="App-header" style={{ overflow: "auto" }}>
         <div className='main'>
+          <img
+            src='./Loyola Reviews Logo.png'
+            style={{
+              margin: "30px",
+              filter: `
+              drop-shadow(2px 2px 2px #00DDEB)
+              drop-shadow(-2px -2px 2px #AF40FF)
+              drop-shadow(2px -2px 2px #5B42F3)
+              drop-shadow(-2px 2px 2px #5B51D8)`
+            }}
+          />
           <CreateReviewForm />
           {reviews !== undefined ?
             (reviews.map((reviewData, index) => {
