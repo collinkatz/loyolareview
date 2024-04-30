@@ -153,12 +153,12 @@ function CreateReviewForm() {
                     placeholder="Title"
                     // style={styles.formInput}
                 />
-                <input
+                <textarea
                     className="form-input"
                     type="textarea"
                     name="body"
                     placeholder="Description"
-                    // style={styles.formInput}
+                    style={{height: "100%"}}
                 />
                 <input
                     className="form-input"

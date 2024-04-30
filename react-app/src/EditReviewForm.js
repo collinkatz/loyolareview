@@ -80,14 +80,15 @@ function EditReviewForm({ reviewData, isOpen, handleClick }) {
                             onChange={handleChange}
                             value={formData.title}
                         />
-                        <input
+                        <textarea
                             className="form-input"
                             type="textarea"
                             name="body"
                             placeholder="Description"
                             onChange={handleChange}
-                            value={formData.body}
-                        />
+                            // value={formData.body}
+                            style={{height: "100%"}}
+                        >{formData.body}</textarea>
                         <input
                             className="form-input"
                             type="number"
