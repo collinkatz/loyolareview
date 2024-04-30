@@ -66,7 +66,7 @@ function EditReviewForm({ reviewData, isOpen, handleClick }) {
         {isOpen ?
             <div className="edit-review-form-container">
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-                    <button class="close-modal-button review-button" onClick={handleClick}><i class="fa fa-close"></i></button>
+                    <button class="close-modal-button review-button button-circle" onClick={handleClick}><i class="fa fa-close"></i></button>
                     <form
                         className="edit-review-form"
                         onSubmit={submit}
@@ -99,7 +99,7 @@ function EditReviewForm({ reviewData, isOpen, handleClick }) {
                             value={formData.rating}
                         />
                         <input
-                            className="form-submit-button review-button"
+                            className="form-submit-button review-button button-rectangle"
                             type="submit"
                             value="Submit"
                         />

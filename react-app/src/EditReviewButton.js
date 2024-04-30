@@ -12,7 +12,7 @@ function EditReviewButton({ reviewData }) {
     return (
         <div style={{alignSelf: "end"}}>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-            <button class="edit-review-button review-button" onClick={handleClick}><i class="fa fa-pencil-square-o"></i></button>
+            <button class="edit-review-button review-button button-circle" onClick={handleClick}><i class="fa fa-pencil-square-o"></i></button>
             <EditReviewForm reviewData={reviewData} isOpen={isOpen} handleClick={handleClick} />
         </div>
     );

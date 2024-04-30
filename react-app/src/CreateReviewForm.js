@@ -180,7 +180,7 @@ function CreateReviewForm() {
                 />
                 {renderFileList()}
                 <input
-                    className="form-submit-button review-button"
+                    className="form-submit-button review-button button-rectangle"
                     type="submit"
                     value="Submit"
                     // style={styles.formInput}

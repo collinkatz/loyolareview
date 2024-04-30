@@ -52,7 +52,7 @@ function DeleteReviewForm({ reviewData, isOpen, handleClick }) {
         {isOpen ?
             <div className="edit-review-form-container">
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-                    <button class="close-modal-button review-button" onClick={handleClick}><i class="fa fa-close"></i></button>
+                    <button class="close-modal-button review-button button-circle" onClick={handleClick}><i class="fa fa-close"></i></button>
                     <form
                         className="edit-review-form"
                         onSubmit={submit}
@@ -60,7 +60,7 @@ function DeleteReviewForm({ reviewData, isOpen, handleClick }) {
                         <h6 className="form-title">Are you sure you want to delete this review</h6>
                         <h6 className="form-title">{reviewData.title}</h6>
                         <input
-                            className="form-submit-button review-button"
+                            className="form-submit-button review-button button-rectangle"
                             type="submit"
                             value="Delete"
                         />
